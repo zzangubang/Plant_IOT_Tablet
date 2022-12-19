@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UserSetting">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/backHome"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/backHome"
+            android:fontFamily="@font/title_font"
+            android:text="Auto Setting"
+            android:textColor="#000000"
+            android:textSize="25dp" />
+
+        <android.widget.Button
+            android:id="@+id/saveBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="SAVE"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:fontFamily="@font/title_font"
+            android:background="@drawable/setting_btn_selector"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/tempBTN"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/setting_work_click_layout">
+
+                        <ImageView
+                            android:id="@+id/tempI"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/setting_temp_click" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/humiBTN"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/setting_work_layout_selector">
+
+                        <ImageView
+                            android:id="@+id/humiI"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/setting_humi" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/fanBTN"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/setting_work_layout_selector">
+
+                        <TextView
+                            android:id="@+id/fanT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="12dp"
+                            android:fontFamily="@font/title_font"
+                            android:text="In"
+                            android:textColor="#636363"
+                            android:textSize="15dp" />
+
+                        <ImageView
+                            android:id="@+id/fanI"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/setting_fan" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/ledLBTN"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/setting_work_layout_selector">
+
+                        <TextView
+                            android:id="@+id/ledLT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="12dp"
+                            android:fontFamily="@font/title_font"
+                            android:text="L"
+                            android:textColor="#636363"
+                            android:textSize="15dp" />
+
+                        <ImageView
+                            android:id="@+id/ledLI"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/setting_led" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/ledRBTN"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/setting_work_layout_selector">
+
+                        <TextView
+                            android:id="@+id/ledRT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="12dp"
+                            android:fontFamily="@font/title_font"
+                            android:text="R"
+                            android:textColor="#636363"
+                            android:textSize="15dp" />
+
+                        <ImageView
+                            android:id="@+id/ledRI"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/setting_led" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="20dp"
+                    android:gravity="center"
+                    android:background="@drawable/setting_print_layout">
+
+                    <TextView
+                        android:id="@+id/autoValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#000000"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/main_font"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/setting_edit_layout">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
