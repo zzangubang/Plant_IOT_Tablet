@@ -1,6 +1,7 @@
 package com.example.plant_iot_tablet;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -57,6 +58,8 @@ public class IlluData extends Fragment {
     String getValueTableDURL = "http://aj3dlab.dothome.co.kr/Plant_valueTableD_Android.php";
     GetValueTableD gValueTD;
 
+    ProgressDialog dialog;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -104,6 +107,10 @@ public class IlluData extends Fragment {
         View v =inflater.inflate(R.layout.fragment_illu_data, container, false);
 
         model = ((Data)getActivity()).model;
+        // 로딩창.
+        dialog = new ProgressDialog(getContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("데이터 조회중입니다.\n잠시만 기다려주세요.");
 
         dataDate = (TextView) v.findViewById(R.id.dataDate);
 
@@ -114,6 +121,7 @@ public class IlluData extends Fragment {
                 dataDate.setText(lastDate);
                 gValueT = new GetValueTable();
                 gValueT.execute(getValueTableURL, lastDate);
+                dialog.show();
                 illuGraph.loadUrl("http://aj3dlab.dothome.co.kr/Plant_illuGraph.php?model=" + model + "&date=" + lastDate);
             }
         });
@@ -135,6 +143,7 @@ public class IlluData extends Fragment {
 
                 gValueT = new GetValueTable(); // 선택한 날짜의 데이터 구하기.
                 gValueT.execute(getValueTableURL, selectDate);
+                dialog.show();
                 dataDate.setText(selectDate);
                 illuGraph.loadUrl("http://aj3dlab.dothome.co.kr/Plant_illuGraph.php?model=" + model + "&date=" + selectDate);
             }
@@ -224,8 +233,8 @@ public class IlluData extends Fragment {
         protected void onPostExecute(String str) {
             String TAG_JSON = "aj3dlab";
             String date = "", time = "", value = "";
-            int  minIlluT = 0, maxIlluT = 0;
-            int avgIlluT = 0;
+            double  minIlluT = 0, maxIlluT = 0;
+            double avgIlluT = 0;
             int illuCnt = 0;
             illuTable.removeViews(1, illuTable.getChildCount()-1); // 테이블 비우기.
 
@@ -242,17 +251,17 @@ public class IlluData extends Fragment {
 
 
                     if(i == 0) {
-                        minIlluT = maxIlluT = Integer.valueOf(value);
-                        avgIlluT += Integer.valueOf(value);
+                        minIlluT = maxIlluT = Float.valueOf(value);
+                        avgIlluT += Float.valueOf(value);
                         illuCnt++;
                     }
-                    if(minIlluT >= Integer.valueOf(value)) {
-                        minIlluT = Integer.valueOf(value);
+                    if(minIlluT >= Float.valueOf(value)) {
+                        minIlluT = Float.valueOf(value);
                     }
-                    if(maxIlluT <= Integer.valueOf(value)) {
-                        maxIlluT = Integer.valueOf(value);
+                    if(maxIlluT <= Float.valueOf(value)) {
+                        maxIlluT = Float.valueOf(value);
                     }
-                    avgIlluT += Integer.valueOf(value);
+                    avgIlluT += Float.valueOf(value);
                     illuCnt++;
 
                     TableRow tableRow = new TableRow(getContext());
@@ -276,7 +285,7 @@ public class IlluData extends Fragment {
 
                     // 센서 값 넣기.
                     TextView V1textView = new TextView(getContext());
-                    V1textView.setText(value);
+                    V1textView.setText(String.format("%.2f", Float.valueOf(value)));
                     V1textView.setPadding(2, 2, 2, 2);
                     V1textView.setGravity(Gravity.CENTER);
                     tableRow.addView(V1textView);
@@ -284,10 +293,11 @@ public class IlluData extends Fragment {
                     illuTable.addView(tableRow);
                 }
                 avgIlluT = avgIlluT / illuCnt;
-                avgIllu.setText(String.valueOf(avgIlluT) + "Lx");
-                minIllu.setText(String.valueOf(minIlluT) + "Lx");
-                maxIllu.setText(String.valueOf(maxIlluT) + "Lx");
+                avgIllu.setText(String.format("%.2f", avgIlluT) + "Lx");
+                minIllu.setText(String.format("%.2f", minIlluT) + "Lx");
+                maxIllu.setText(String.format("%.2f", maxIlluT) + "Lx");
 
+                dialog.dismiss();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -339,7 +349,7 @@ public class IlluData extends Fragment {
 
         protected void onPostExecute(String str) {
             String TAG_JSON = "aj3dlab";
-            String date = "";
+            String date = "", dateL = "";
 
             try {
                 JSONObject jsonObject = new JSONObject(str);
@@ -353,16 +363,18 @@ public class IlluData extends Fragment {
                     if(i == 0) {
                         lastDate = date;
                         dataLast.setText(date);
-                        gValueT = new GetValueTable();
-                        gValueT.execute(getValueTableURL, date);
-                        dataDate.setText(date);
-                        illuGraph.loadUrl("http://aj3dlab.dothome.co.kr/Plant_illuGraph.php?model=" + model + "&date=" + date);
+                        dateL = date;
                     }
                     else {
                         firstDate = date;
                         dataFirst.setText(date);
                     }
                 }
+                dataDate.setText(dateL);
+                illuGraph.loadUrl("http://aj3dlab.dothome.co.kr/Plant_illuGraph.php?model=" + model + "&date=" + dateL);
+                gValueT = new GetValueTable();
+                gValueT.execute(getValueTableURL, dateL);
+                dialog.show();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

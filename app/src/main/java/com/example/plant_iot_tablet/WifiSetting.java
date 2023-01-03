@@ -511,6 +511,9 @@ public class WifiSetting extends AppCompatActivity {
                         deviceState = "on";
                         arduinoStateT.setText("READY");
                     }
+                    if(value[1].trim().equals("CHANGE")) {
+                        toastShow("입력되었습니다.");
+                    }
                 }
             }
         });

@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
     TabLayout main_tabLayout;
 
     String model = "";
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
     Context mContext;
     Toast toast;
@@ -77,15 +75,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mContext = this;
 
-        startService(new Intent(this, ForcedTerminationService.class));
-        Intent intent = new Intent(this, MyService.class);
-        stopService(intent);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent);
-        }
-        else {
-            startService(intent);
-        }
+        Intent getIntent = getIntent();
+        model = getIntent.getStringExtra("model");
 
         // 블루투스 및 와이파이 권한 허용.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -111,10 +102,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MainPagerAdapter(getSupportFragmentManager());
         main_viewpager.setAdapter(adapter);
         main_tabLayout.setupWithViewPager(main_viewpager);
-
-        sharedPreferences = getSharedPreferences("PlantInform", MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        model = sharedPreferences.getString("name", "");
 
         // 메뉴.
         menu_data = (RelativeLayout) findViewById(R.id.menu_data);
@@ -163,9 +150,6 @@ public class MainActivity extends AppCompatActivity {
         menu_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SettingModel.class);
-                intent.putExtra("model", model);
-                startActivityForResult(intent, 1);
             }
         });
 
@@ -453,16 +437,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                String model = data.getStringExtra("model");
-                this.model = model;
-                editor.putString("name", model);
-                editor.putString("noti", "0");
-                editor.commit();
-                reLoad();
-            }
-        }
         if (requestCode == 2) {
             if(resultCode == RESULT_OK) {
                 SendCommand();
@@ -750,12 +724,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 뒤로가기.
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBackPressed() {
-        // 액티비티 죽이고, 프로세스 계속 실행.
-        moveTaskToBack(true);
-        finishAndRemoveTask();
+        finish();
     }
 
 

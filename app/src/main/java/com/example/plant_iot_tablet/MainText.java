@@ -38,8 +38,6 @@ public class MainText extends Fragment {
     GetValue gValue;
 
     String model = "";
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     Timer timer;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -88,9 +86,7 @@ public class MainText extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main_text, container, false);
 
-        sharedPreferences = this.getActivity().getSharedPreferences("PlantInform", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        model = sharedPreferences.getString("name", "");
+        model = ((MainActivity)getActivity()).model;
 
         tempValue = (TextView) v.findViewById(R.id.tempValue);
         humiValue = (TextView) v.findViewById(R.id.humiValue);

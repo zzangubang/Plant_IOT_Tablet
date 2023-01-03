@@ -3,8 +3,8 @@
     package="com.example.plant_iot_tablet">
 
     <uses-feature android:name="android.hardware.location.network" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -25,20 +25,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Plant_IOT_Tablet"
         android:usesCleartextTraffic="true">
+
         <service
             android:name=".MyService"
             android:enabled="true"
             android:exported="true"
-            android:process=":myservice"></service>
-        <service android:name=".ForcedTerminationService"
-            android:stopWithTask="false"/>
+            android:process=":myservice" />
+        <service
+            android:name=".ForcedTerminationService"
+            android:stopWithTask="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustNothing"> <!-- 가로 고정 ! -->
-
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,11 +46,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingModel"
+            android:name=".LoginActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Dialog" />
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustNothing"> <!-- 가로 고정 ! -->
+        </activity>
+        <activity
+            android:name=".PlantNameRevise"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Dialog"/>
         <activity
             android:name=".UserSetting"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".InformSetting"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustNothing" />
         <activity
